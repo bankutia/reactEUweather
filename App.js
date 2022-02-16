@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CityListScreen from './CityList';
+import CityListScreen from './src/screens/CityList/CityList';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import DashboardScreen from './src/screens/Dashboard/Dashboard';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +12,7 @@ function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name='Dashboard' component={DashboardScreen}/>
           <Stack.Screen name='CityList' component={CityListScreen}/>
         </Stack.Navigator>
       </NavigationContainer>

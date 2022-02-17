@@ -28,25 +28,15 @@ function DashboardScreen({ route, navigation }) {
     return (
         <SafeAreaView edges={['right', 'bottom', 'left']} style={{flex: 1}}>
             <FlatList
-            data={getData()}
+            data={cityIds}
             renderItem={({ item }) => (
-                <CityTemperatureCard 
-                    name={item.name} 
-                    temperature={item.temperature} 
-                    image_url={item.image_url}/>
+                <CityTemperatureCard cityId={item}/>
             )}
-            keyExtractor={item => item.key}
+            keyExtractor={item => item}
             />
             <StatusBar style="auto" />
         </SafeAreaView>
     );
-
-    function getData() {
-        return [
-            {key: 1, name: "Budapest", temperature: 5, image_url: "http://openweathermap.org/img/w/01d.png"}, 
-            {key: 2, name: "London", temperature: 12, image_url: "http://openweathermap.org/img/w/02d.png"}
-        ];
-    }
 }
   
 export default DashboardScreen;

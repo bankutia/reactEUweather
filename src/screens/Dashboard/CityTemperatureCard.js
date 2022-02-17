@@ -1,6 +1,25 @@
+import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
+import CityProvider from "../../model/City/CityProvider";
+import WeatherProvider from "../../model/Weather/WeatherProvider";
 
 function CityTemperatureCard(props) {
+
+    const [temperature, setTemperature] = useState(null);
+    const [iconUrl, setIconUrl] = useState(null);
+    const cityProvider = new CityProvider();
+    const weatherProvider = new WeatherProvider();
+
+    useEffect(() => {
+        async function fetchWeather() {
+            let weather = await weatherProvider.getCurrentWeather(props.cityId);
+            setTemperature(Math.round(weather.temp));
+            setIconUrl(weatherProvider.getIconUri(weather.iconId));
+        }
+        if (props.cityId) {
+            fetchWeather();
+        }
+    }, [props.cityId]);
 
     return (
         <View>
@@ -8,14 +27,12 @@ function CityTemperatureCard(props) {
                 <View style={styles.card_hstack}>
                     <View style={styles.card_vstack}>
                         <Image
-                        style={styles.weather_image}
-                        source={{
-                            uri: props.image_url,
-                        }}/>
-                        <Text style={styles.city_title}>{props.name}</Text>
+                            style={styles.weather_image}
+                            source={{uri: iconUrl}}/>
+                        <Text style={styles.city_title}>{cityProvider.getCityById(props.cityId).name}</Text>
                     </View>
                     <View style={{alignItems: "flex-end", justifyContent: "center"}}>
-                        <Text style={styles.degree_title}>{props.temperature}°C</Text>
+                        <Text style={styles.degree_title}>{temperature}°C</Text>
                     </View>
                 </View>
             </View>

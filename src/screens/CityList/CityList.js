@@ -2,13 +2,12 @@ import { StatusBar } from "expo-status-bar";
 import { useLayoutEffect } from "react";
 import { FlatList } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import CityProvider from "../../model/City/CityProvider";
+import cityProvider from "../../model/City/CityProvider";
 import CityItem from "./CityItem";
 
 function CityListScreen({ route, navigation }) {
 
     const { cityIds } = route.params;
-    const cityProvider = new CityProvider();
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -19,7 +18,7 @@ function CityListScreen({ route, navigation }) {
     return (
         <SafeAreaView edges={['right', 'bottom', 'left']}>
             <FlatList
-                data={cityProvider.getCitiesArray().sort((a, b) => a.name > b.name)}
+                data={getData().sort((a, b) => a.name > b.name)}
                 renderItem={({ item }) => (
                   <CityItem 
                       title={item.name} 
@@ -35,6 +34,17 @@ function CityListScreen({ route, navigation }) {
             <StatusBar style="auto" />
         </SafeAreaView>
     );
+
+    function getData() {
+        return cityProvider.getCitiesArray().map(city => {
+            return {
+                cityId: city.cityId,
+                name: city.name,
+                flag: city.flag,
+                isDisabled: cityIds.includes(city.cityId)
+            }
+        });
+    }
 }
 
 export default CityListScreen;

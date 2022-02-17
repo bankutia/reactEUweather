@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import CityProvider from "../../model/City/CityProvider";
-import WeatherProvider from "../../model/Weather/WeatherProvider";
+import cityProvider from "../../model/City/CityProvider";
+import weatherProvider from "../../model/Weather/WeatherProvider";
 
 function CityTemperatureCard(props) {
 
     const [temperature, setTemperature] = useState(null);
     const [iconUrl, setIconUrl] = useState(null);
-    const cityProvider = new CityProvider();
-    const weatherProvider = new WeatherProvider();
 
     useEffect(() => {
         async function fetchWeather() {

@@ -37,4 +37,6 @@ class CityProvider {
     }
 }
 
-export default CityProvider;
+const cityProvider = new CityProvider();
+
+export default cityProvider;

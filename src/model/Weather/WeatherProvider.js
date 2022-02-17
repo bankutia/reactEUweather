@@ -1,4 +1,3 @@
-
 const api_key = "2345e7feb29ab7d6c1d72459a6ccaf4d";
 
 class WeatherProvider {
@@ -28,4 +27,6 @@ class WeatherProvider {
     }
 }
 
-export default WeatherProvider;
+const weatherProvider = new WeatherProvider();
+
+export default weatherProvider;
